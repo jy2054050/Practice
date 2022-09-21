@@ -44,9 +44,23 @@ public class PracticeApplication {
 //
 //		System.out.println(garbageCollection(garbage, travel));
 		
-		System.out.println(freqAlphabets("10#11#12"));
-
+//		System.out.println(freqAlphabets("10#11#12"));
+		
+		int [] arr = new int[] {2,3,4,7,11};
+		System.out.println(findKthPositive(arr, 5));
 	}
+	
+	public static int findKthPositive(int[] arr, int k) {
+        int n = arr.length;
+        Map<Integer, Boolean> map = new HashMap<>();
+        for(int i : arr) map.put(i, true);
+        int missing = 0;
+        for(int j =1; j< arr[n-1] ; j ++){
+            if(!map.containsKey(j)) missing++;
+            if(missing == k) return j;
+        }
+        return arr[n-1] + (k-missing);
+    }
 	
 	
     public static String freqAlphabets(String s) {
