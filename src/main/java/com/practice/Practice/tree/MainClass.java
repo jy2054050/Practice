@@ -1,29 +1,74 @@
 package com.practice.Practice.tree;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class MainClass {
 
 	public static void main(String[] args) {
 		TreeNode testNode = test1();
+		BTreePrinter.printNode(testNode);
+		// levelOrder(testNode);
+		// preOrder(testNode);
+		// inOrder(testNode);
 
-		levelOrder(testNode);
+		// System.out.println("height of this tree is : " + heightOfTree(testNode));
+		System.out.println("height of this tree is : " + heightOfEachTreeNode(testNode));
 
 	}
 
-	public static List<List<Integer>> levelOrder(TreeNode root) {
-		BTreePrinter.printNode(root);
-
+	public static void levelOrder(TreeNode root) {
 		Queue<TreeNode> q = new LinkedList<>();
 		q.add(root);
 		while (q.size() > 0) {
-			q.remove();
+			TreeNode temp = q.remove();
+			System.out.print(temp.val + " - ");
+			if (temp.left != null)
+				q.add(temp.left);
+			if (temp.right != null)
+				q.add(temp.right);
 		}
+	}
 
-		return null;
+	public static void preOrder(TreeNode root) {
+		if (root != null) {
+			System.out.print(root.val + " - ");
+			preOrder(root.left);
+			preOrder(root.right);
+		}
+	}
 
+	public static void inOrder(TreeNode root) {
+		if (root != null) {
+			inOrder(root.left);
+			System.out.print(root.val + " - ");
+			inOrder(root.right);
+		}
+	}
+
+	public static void postOrder(TreeNode root) {
+		if (root != null) {
+			postOrder(root.left);
+			postOrder(root.right);
+			System.out.print(root.val + " - ");
+		}
+	}
+
+	public static int heightOfTree(TreeNode root) {
+		if (root == null)
+			return 0;
+		else
+			return (Math.max(heightOfTree(root.left), heightOfTree(root.right)) + 1);
+	}
+
+	public static int heightOfEachTreeNode(TreeNode root) {
+		if (root == null)
+			return 0;
+		else {
+			int h = (Math.max(heightOfEachTreeNode(root.left), heightOfEachTreeNode(root.right)) + 1);
+			System.out.println("Height of node : " + root.val + " = " + h);
+			return h;
+		}
 	}
 
 	public boolean evaluateTree(TreeNode root) {
